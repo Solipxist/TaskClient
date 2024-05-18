@@ -8,6 +8,6 @@ data class Task(
     val title: String,
     val description: String,
     val creationDate: OffsetDateTime, // Usa OffsetDateTime en lugar de LocalDateTime
-    val dueDate: OffsetDateTime,      // Usa OffsetDateTime en lugar de LocalDateTime
+    val dueDate: OffsetDateTime?,      // Usa OffsetDateTime en lugar de LocalDateTime
     val completed: Boolean
 )

@@ -11,6 +11,9 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.taskTitle)
         val description: TextView = itemView.findViewById(R.id.taskDescription)
+        val creationDate: TextView = itemView.findViewById(R.id.taskCreationDate)
+        val dueDate: TextView = itemView.findViewById(R.id.taskDueDate)
+        val completed: TextView = itemView.findViewById(R.id.taskCompleted)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -20,8 +23,11 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
-        holder.title.text = task.title
-        holder.description.text = task.description
+        holder.title.text = "Title: ${task.title}"
+        holder.description.text = "Description: ${task.description}"
+        holder.creationDate.text = "Creation Date: ${task.creationDate}"
+        holder.dueDate.text = "Due Date: ${task.dueDate}"
+        holder.completed.text = "Completed: ${task.completed}"
     }
 
     override fun getItemCount(): Int = tasks.size
@@ -31,3 +37,4 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
         notifyDataSetChanged()
     }
 }
+

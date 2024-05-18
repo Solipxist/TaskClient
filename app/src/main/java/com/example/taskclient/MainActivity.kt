@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate called")
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -48,30 +48,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchTasks() {
-        // Use Retrofit to make a GET request to fetch tasks
-        val call = apiService.getTasks()
+        // Usa tu instancia Retrofit con Gson personalizado para hacer la llamada al servicio
+        val call = RetrofitInstance.api.getTasks()
+        Log.d(TAG, "onCreate called $call")
 
-        // Execute the call asynchronously
         call.enqueue(object : Callback<List<Task>> {
             override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
                 if (response.isSuccessful) {
                     val tasks = response.body()
                     tasks?.let {
-                        // Update the RecyclerView adapter with the fetched tasks
                         taskAdapter.updateTasks(it)
+                        Log.d(TAG, "JSON response: $tasks")
                     }
                 } else {
-                    // Handle unsuccessful response
                     Log.e(TAG, "Failed to fetch tasks: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<List<Task>>, t: Throwable) {
-                // Handle failure
                 Log.e(TAG, "Failed to fetch tasks", t)
             }
         })
     }
+
+
 
     companion object {
         private const val TAG = "MainActivity"

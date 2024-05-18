@@ -4,7 +4,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
-import java.time.LocalDateTime
 import java.time.OffsetDateTime
 
 object RetrofitInstance {
@@ -22,7 +21,6 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
-
 
     val api: ApiService by lazy {
         retrofit.create(ApiService::class.java)

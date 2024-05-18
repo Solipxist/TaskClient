@@ -19,4 +19,25 @@
         android:layout_height="wrap_content"
         android:text="Task Description"
         android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/taskCreationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Creation Date"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/taskDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due Date"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/taskCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Completed"
+        android:textSize="14sp"/>
 </LinearLayout>
