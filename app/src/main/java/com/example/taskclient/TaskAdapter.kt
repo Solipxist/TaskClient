@@ -3,8 +3,14 @@ package com.example.taskclient
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.temporal.ChronoUnit
 
 class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
@@ -13,7 +19,7 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
         val description: TextView = itemView.findViewById(R.id.taskDescription)
         val creationDate: TextView = itemView.findViewById(R.id.taskCreationDate)
         val dueDate: TextView = itemView.findViewById(R.id.taskDueDate)
-        val completed: TextView = itemView.findViewById(R.id.taskCompleted)
+        val completedCheckbox: CheckBox = itemView.findViewById(R.id.taskCompletedCheckbox)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -26,8 +32,11 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
         holder.title.text = "Title: ${task.title}"
         holder.description.text = "Description: ${task.description}"
         holder.creationDate.text = "Creation Date: ${task.creationDate}"
-        holder.dueDate.text = "Due Date: ${task.dueDate}"
-        holder.completed.text = "Completed: ${task.completed}"
+        holder.dueDate.text = getDueDateText(task.dueDate)
+        holder.completedCheckbox.isChecked = task.completed
+        holder.completedCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            task.completed = isChecked
+        }
     }
 
     override fun getItemCount(): Int = tasks.size
@@ -36,5 +45,19 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
         tasks = newTasks
         notifyDataSetChanged()
     }
-}
 
+    private fun getDueDateText(dueDate: OffsetDateTime?): String {
+        dueDate?.let {
+            val currentDate = LocalDateTime.now()
+            val difference = ChronoUnit.MINUTES.between(currentDate, it)
+            if (difference > 0) {
+                val days = difference / (60 * 24)
+                val hours = (difference % (60 * 24)) / 60
+                val minutes = difference % 60
+                return "Due Date: $days days, $hours hours, $minutes minutes"
+            } else {
+                return "Overdue"
+            }
+        } ?: return "No Due Date"
+    }
+}

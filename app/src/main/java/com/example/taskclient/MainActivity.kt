@@ -1,6 +1,7 @@
 package com.example.taskclient
 
 import android.os.Bundle
+import android.content.Intent
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,13 +45,18 @@ class MainActivity : AppCompatActivity() {
         taskAdapter = TaskAdapter(emptyList())
         recyclerView.adapter = taskAdapter
 
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener {
+            val intent = Intent(this, AddTaskActivity::class.java)
+            startActivity(intent)
+        }
+
         // Fetch tasks from the API
         fetchTasks()
     }
 
     private fun fetchTasks() {
-        // Usa tu instancia Retrofit con Gson personalizado para hacer la llamada al servicio
-        val call = RetrofitInstance.api.getTasks()
+        val call = apiService.getTasks()
         Log.d(TAG, "onCreate called $call")
 
         call.enqueue(object : Callback<List<Task>> {
@@ -70,8 +77,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-
 
     companion object {
         private const val TAG = "MainActivity"
