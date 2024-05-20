@@ -2,6 +2,7 @@ package com.example.taskclient
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskclient.User
 import com.example.taskclient.RetrofitInstance
+import org.mindrot.jbcrypt.BCrypt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,24 +52,33 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser(email: String, password: String) {
-        val user = User(name = "", email = email, password = password,id=0)
 
-
-        apiService.loginUser(user).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        apiService.checkUserExists(email, password).enqueue(object : Callback<Boolean> {
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 if (response.isSuccessful) {
-                    // Guardar token o userId para futuras peticiones
-                    // Iniciar MainActivity
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val userExists = response.body() ?: false
+
+                    if (userExists) {
+                        // El usuario existe, iniciar MainActivity
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        // El usuario no existe o las credenciales son incorrectas
+                        Log.e("LoginActivity", "Usuario no encontrado o credenciales incorrectas")
+                        Toast.makeText(this@LoginActivity, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-                    Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_SHORT).show()
+                    // Error en la solicitud
+                    Log.e("LoginActivity", "Error en la solicitud: ${response.message()}")
+                    Toast.makeText(this@LoginActivity, "Failed to check user", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, t.message, Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                // Error en la conexión
+                Log.e("LoginActivity", "Error de conexión: ${t.message}")
+                Toast.makeText(this@LoginActivity, "Connection error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

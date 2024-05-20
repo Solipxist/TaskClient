@@ -19,11 +19,10 @@ interface ApiService {
     @DELETE("api/TaskItem/{id}")
     fun deleteTask(@Path("id") taskId: Int): Call<Unit>
 
-    @POST("api/users")
+    @POST("api/User")
     fun registerUser(@Body user: User): Call<User>
 
-    @POST("api/login")
-    fun loginUser(@Body user: User): Call<User>
-
+    @POST("api/User/Login")
+    fun checkUserExists(@Query("email") email: String, @Query("password") password: String): Call<Boolean>
 
 }
