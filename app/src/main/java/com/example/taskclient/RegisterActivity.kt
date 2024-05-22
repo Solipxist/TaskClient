@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var ETPassword: EditText
     private lateinit var BTNRegister: Button
     private lateinit var retrofit: Retrofit
-    private lateinit var apiService: ApiService
+    private lateinit var apiService: TaskApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         BTNRegister=findViewById(R.id.registerButton)
 
         retrofit = RetrofitInstance.retrofit
-        apiService=RetrofitInstance.api
+        apiService=RetrofitInstance.taskApiService
 
         BTNRegister.setOnClickListener {
             val name = ETName.text.toString()
@@ -46,9 +46,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerUser(name: String, email: String, password: String) {
-        val user = User(name = name, email = email, password = password, id = 0)
+        val user = User(username = name, email = email, password = password, userId = 0, tasks = null)
         Log.d("RegisterActivity", "Datos del usuario: $user")
-        apiService.registerUser(user).enqueue(object : Callback<User> {
+        apiService.createUser(user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     // Registro exitoso, iniciar LoginActivity

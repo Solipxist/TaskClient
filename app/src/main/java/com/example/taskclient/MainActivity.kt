@@ -1,7 +1,9 @@
 package com.example.taskclient
 
+import android.content.Context
 import android.os.Bundle
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var retrofit: Retrofit
-    private lateinit var apiService: ApiService
+    private lateinit var apiService: TaskApiService
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +36,26 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize Retrofit and ApiService
         retrofit = RetrofitInstance.retrofit
-        apiService = RetrofitInstance.api
+        apiService = RetrofitInstance.taskApiService
 
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", -1)
+        val userName = sharedPreferences.getString("username", "")
+        val email = sharedPreferences.getString("email", "")
+
+        if (userId == 0) {
+            with(sharedPreferences.edit()) {
+                remove("userId")
+                apply()
+            }
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        Log.d("userData", userId.toString() +  " " + userName + " " + email)
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -47,34 +68,35 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Fetch tasks from the API
-        fetchTasks()
+        // Load user and tasks for the logged in user
+        if (userId != -1) {
+            loadUserAndTasks(userId)
+        } else {
+            Log.e("MainActivity", "User ID not found in SharedPreferences")
+        }
     }
 
-    private fun fetchTasks() {
-        val call = apiService.getTasks()
-        Log.d(TAG, "onCreate called $call")
-
-        call.enqueue(object : Callback<List<Task>> {
-            override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
+    private fun loadUserAndTasks(userId: Int) {
+        val call = apiService.getUser(userId)
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
-                    val tasks = response.body()
-                    tasks?.let {
-                        taskAdapter.updateTasks(it)
-                        Log.d(TAG, "JSON response: $tasks")
+                    val user = response.body()
+                    if (user != null) {
+                        Log.d("tasks", user.tasks.toString())
+                        user.tasks?.let { taskAdapter.updateTasks(it) }
+                    } else {
+                        Log.e("MainActivity", "Error: User object is null")
                     }
                 } else {
-                    Log.e(TAG, "Failed to fetch tasks: ${response.message()}")
+                    Log.e("MainActivity", "Error: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<Task>>, t: Throwable) {
-                Log.e(TAG, "Failed to fetch tasks", t)
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("MainActivity", "Error fetching user: ${t.message}", t)
             }
         })
     }
-
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 }
+

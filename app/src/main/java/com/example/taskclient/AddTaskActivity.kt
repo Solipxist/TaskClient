@@ -1,6 +1,8 @@
 package com.example.taskclient
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -23,7 +25,8 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var editTextDescription: EditText
     private lateinit var addTaskButton: Button
     private lateinit var retrofit: Retrofit
-    private lateinit var apiService: ApiService
+    private lateinit var apiService: TaskApiService
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,9 @@ class AddTaskActivity : AppCompatActivity() {
         addTaskButton = findViewById(R.id.addTaskButton)
 
         retrofit = RetrofitInstance.retrofit
-        apiService = RetrofitInstance.api
+        apiService = RetrofitInstance.taskApiService
+
+        sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
 
         editTextDateTime.setOnClickListener {
             showDateTimePickerDialog()
@@ -77,13 +82,16 @@ class AddTaskActivity : AppCompatActivity() {
 
         Log.d(TAG, "DueDate: $dueDate")
 
+        val userId = sharedPreferences.getInt("userId", -1)
+
         val task = Task(
-            id = 0,
+            taskId = 0,
             title = title,
             description = description,
             creationDate = OffsetDateTime.now(),
             dueDate = dueDate,
-            completed = false
+            completed = false,
+            userId = userId
         )
 
         Log.d(TAG, "Task: $task")
@@ -91,18 +99,30 @@ class AddTaskActivity : AppCompatActivity() {
     }
 
     private fun createTask(task: Task) {
-        apiService.createTask(task).enqueue(object : Callback<Task> {
+        val call = apiService.createTask(task)
+        call.enqueue(object : Callback<Task> {
             override fun onResponse(call: Call<Task>, response: Response<Task>) {
                 if (response.isSuccessful) {
-                    finish()
+                    val createdTask = response.body()
+                    if (createdTask != null) {
+                        Log.d(TAG, "Task created successfully: $createdTask")
+                        // Aquí puedes agregar cualquier lógica adicional después de crear la tarea
+                    } else {
+                        Log.e(TAG, "Error: Task object is null")
+                    }
                 } else {
+                    Log.e(TAG, "Error: ${response.code()}")
+                    // Aquí puedes manejar los diferentes códigos de error, si es necesario
                 }
             }
 
             override fun onFailure(call: Call<Task>, t: Throwable) {
+                Log.e(TAG, "Error creating task: ${t.message}", t)
+                // Aquí puedes manejar los errores de conexión, etc.
             }
         })
     }
+
 
     private fun convertToOffsetDateTime(dateTime: String): OffsetDateTime {
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")

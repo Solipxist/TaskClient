@@ -1,28 +1,22 @@
 package com.example.taskclient
 
+import Iso8601OffsetDateTimeAdapter
+import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializer
 import java.time.OffsetDateTime
 
 object RetrofitInstance {
-    private const val BASE_URL = "http://192.168.0.14:8095/"
+    val baseUrl = "http://192.168.0.14:8090/" // Cambia esto a la URL de tu API
 
     val gson = GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime::class.java, JsonDeserializer { json, _, _ ->
-            OffsetDateTime.parse(json.asString)
-        })
+        .registerTypeAdapter(OffsetDateTime::class.java, Iso8601OffsetDateTimeAdapter())
         .create()
 
-    val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-    }
+    val retrofit = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
 
-    val api: ApiService by lazy {
-        retrofit.create(ApiService::class.java)
-    }
+    val taskApiService = retrofit.create(TaskApiService::class.java)
 }

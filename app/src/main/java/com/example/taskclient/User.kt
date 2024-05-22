@@ -1,8 +1,9 @@
 package com.example.taskclient
 
 data class User(
-    val id: Int,
-    val name: String,
+    val userId: Int,
+    val username: String,
     val email: String,
-    val password: String
+    val password: String,
+    val tasks: List<Task>?
 )
