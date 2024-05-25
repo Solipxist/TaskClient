@@ -1,18 +1,22 @@
 package com.example.taskclient
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -57,44 +61,26 @@ class AddTaskActivity : AppCompatActivity() {
         val description = editTextDescription.text.toString().trim()
         val dateTime = editTextDateTime.text.toString().trim()
 
-        Log.d(TAG, "DateTime: $dateTime")
-
         if (title.isEmpty()) {
             editTextTitle.error = "Título requerido"
             editTextTitle.requestFocus()
             return
         }
 
-        if (dateTime.isEmpty()) {
-            editTextDateTime.error = "Fecha y hora requeridas"
-            editTextDateTime.requestFocus()
-            return
-        }
-
-        val dueDate = try {
-            convertToOffsetDateTime(dateTime)
-        } catch (e: Exception) {
-            Log.e(TAG, "Error parsing date and time: ${e.message}")
-            editTextDateTime.error = "Formato de fecha y hora inválido"
-            editTextDateTime.requestFocus()
-            return
-        }
-
-        Log.d(TAG, "DueDate: $dueDate")
-
         val userId = sharedPreferences.getInt("userId", -1)
+
+        val dueDate = convertToOffsetDateTime(dateTime)
 
         val task = Task(
             taskId = 0,
             title = title,
             description = description,
-            creationDate = OffsetDateTime.now(),
+            creationDate = OffsetDateTime.now(ZoneOffset.UTC),
             dueDate = dueDate,
             completed = false,
             userId = userId
         )
 
-        Log.d(TAG, "Task: $task")
         createTask(task)
     }
 
@@ -105,29 +91,26 @@ class AddTaskActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val createdTask = response.body()
                     if (createdTask != null) {
-                        Log.d(TAG, "Task created successfully: $createdTask")
-                        // Aquí puedes agregar cualquier lógica adicional después de crear la tarea
+                        Toast.makeText(this@AddTaskActivity, "Tarea creada exitosamente", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@AddTaskActivity, MainActivity::class.java))
+                        finish()
                     } else {
                         Log.e(TAG, "Error: Task object is null")
                     }
                 } else {
                     Log.e(TAG, "Error: ${response.code()}")
-                    // Aquí puedes manejar los diferentes códigos de error, si es necesario
                 }
             }
 
             override fun onFailure(call: Call<Task>, t: Throwable) {
                 Log.e(TAG, "Error creating task: ${t.message}", t)
-                // Aquí puedes manejar los errores de conexión, etc.
             }
         })
     }
 
-
     private fun convertToOffsetDateTime(dateTime: String): OffsetDateTime {
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-        val localDateTime = LocalDateTime.parse(dateTime, formatter)
-        return localDateTime.atOffset(ZoneOffset.UTC)
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        return OffsetDateTime.parse("$dateTime", formatter)
     }
 
     private fun showDateTimePickerDialog() {
@@ -135,19 +118,18 @@ class AddTaskActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->
-                val selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
-                Log.d(TAG, "Selected date: $selectedDate")
+                val selectedDateTime = OffsetDateTime.of(year, month + 1, dayOfMonth, 0, 0, 0, 0, ZoneOffset.UTC)
+                val formatter = DateTimeFormatter.ISO_DATE_TIME
 
-                // Ahora mostrar el TimePickerDialog
                 val timePickerDialog = TimePickerDialog(
                     this,
                     { _, hourOfDay, minute ->
-                        val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
-                        val selectedDateTime = "$selectedDate $selectedTime"
+                        selectedDateTime.plusHours(hourOfDay.toLong()).plusMinutes(minute.toLong())
+                        val formattedDateTime = selectedDateTime.format(formatter)
 
                         // Actualizar el EditText con la fecha y hora seleccionadas
-                        editTextDateTime.setText(selectedDateTime)
-                        Log.d(TAG, "Selected date and time: $selectedDateTime")
+                        editTextDateTime.setText(formattedDateTime)
+                        Log.d(TAG, "Selected date and time: $formattedDateTime")
                     },
                     calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(Calendar.MINUTE),
@@ -161,7 +143,6 @@ class AddTaskActivity : AppCompatActivity() {
         )
         datePickerDialog.show()
     }
-
 
     companion object {
         private const val TAG = "AddTaskActivity"
