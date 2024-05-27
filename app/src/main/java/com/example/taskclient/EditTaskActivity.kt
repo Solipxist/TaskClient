@@ -20,7 +20,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
-class AddTaskActivity : AppCompatActivity() {
+class EditTaskActivity : AppCompatActivity() {
 
     private lateinit var editTextDateTime: EditText
     private lateinit var editTextTitle: EditText
@@ -32,67 +32,35 @@ class AddTaskActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
+        setContentView(R.layout.activity_edit_task)
 
-        editTextDateTime = findViewById(R.id.editTextDate)
-        editTextTitle = findViewById(R.id.editTextTitle)
-        editTextDescription = findViewById(R.id.editTextDescription)
-        addTaskButton = findViewById(R.id.addTaskButton)
+        val taskId = intent.getIntExtra("TASK_ID", -1)
+
+        editTextDateTime = findViewById(R.id.eEditTextDate)
+        editTextTitle = findViewById(R.id.eEditTextTitle)
+        editTextDescription = findViewById(R.id.eEditTextDescription)
+        addTaskButton = findViewById(R.id.editAddTaskButton)
 
         retrofit = RetrofitInstance.retrofit
         apiService = RetrofitInstance.taskApiService
 
         sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
 
+        getTask(taskId)
+
         editTextDateTime.setOnClickListener {
             showDateTimePickerDialog()
         }
-
-        addTaskButton.setOnClickListener {
-            addTask()
-        }
     }
 
-    private fun addTask() {
-        val title = editTextTitle.text.toString().trim()
-        val description = editTextDescription.text.toString().trim()
-        val dateTime = editTextDateTime.text.toString().trim()
-
-        if (title.isEmpty()) {
-            editTextTitle.error = "Título requerido"
-            editTextTitle.requestFocus()
-            return
-        }
-
-        val userId = sharedPreferences.getInt("userId", -1)
-
-        val dueDate = convertToOffsetDateTime(dateTime)
-
-        val task = Task(
-            taskId = 0,
-            title = title,
-            description = description,
-            creationDate = OffsetDateTime.now(ZoneOffset.UTC),
-            dueDate = dueDate,
-            completed = false,
-            userId = userId
-        )
-
-        createTask(task)
-    }
-
-    private fun createTask(task: Task) {
-        val call = apiService.createTask(task)
+    private fun getTask(id: Int){
+        val call = apiService.getTask(id)
         call.enqueue(object : Callback<Task> {
             override fun onResponse(call: Call<Task>, response: Response<Task>) {
                 if (response.isSuccessful) {
-                    val createdTask = response.body()
-                    if (createdTask != null) {
-                        Toast.makeText(this@AddTaskActivity, "Tarea creada exitosamente", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@AddTaskActivity, MainActivity::class.java))
-                        finish()
-                    } else {
-                        Log.e(TAG, "Error: Task object is null")
+                    val task = response.body()
+                    if (task != null) {
+                        editTextTitle.setText(task.title)
                     }
                 } else {
                     Log.e(TAG, "Error: ${response.code()}")
@@ -104,8 +72,6 @@ class AddTaskActivity : AppCompatActivity() {
             }
         })
     }
-
-
     private fun convertToOffsetDateTime(dateTime: String): OffsetDateTime {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         return OffsetDateTime.parse("$dateTime", formatter)
@@ -143,6 +109,6 @@ class AddTaskActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "AddTaskActivity"
+        private const val TAG = "EDIT"
     }
 }

@@ -1,5 +1,6 @@
 package com.example.taskclient
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,15 @@ class TaskAdapter(private var tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
         holder.completedCheckbox.setOnCheckedChangeListener { _, isChecked ->
             task.completed = isChecked
         }
+
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, EditTaskActivity::class.java).apply {
+                putExtra("TASK_ID", task.taskId)
+            }
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int = tasks.size
