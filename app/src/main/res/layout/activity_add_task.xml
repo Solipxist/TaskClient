@@ -28,7 +28,7 @@
                 android:paddingTop="8dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
-                android:text="Add Task"
+                android:text="@string/Add_Task_Title"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
                     android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:inputType="text"
-                    android:hint="Titulo" />
+                    android:hint="@string/Task_Title_value" />
 
                 <EditText
                     android:id="@+id/editTextDescription"
@@ -66,7 +66,7 @@
                     android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:inputType="text"
-                    android:hint="Descripcion (opcional)"/>
+                    android:hint="@string/Task_Description_value"/>
 
                 <EditText
                     android:id="@+id/editTextDate"
@@ -77,7 +77,7 @@
                     android:layout_marginRight="24dp"
                     android:layout_marginBottom="16dp"
                     android:focusable="false"
-                    android:hint="Selecciona una fecha" />
+                    android:hint="@string/Task_Date_value" />
 
 
                 <Button
@@ -88,7 +88,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Agregar tarea" />
+                    android:text="@string/Add_Task_Button" />
 
             </LinearLayout>
 

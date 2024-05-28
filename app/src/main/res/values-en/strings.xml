@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaskClient</string>
+    <string name="Login_Button">Login</string>
+    <string name="register_string_Login">Register</string>
+
+    <string name="Register_Title">Registration</string>
+    <string name="Register_Button">Register</string>
+
+    <string name="Add_Task_Title">Add Task</string>
+    <string name="Add_Task_Button">Add</string>
+
+    <string name="Title_value">Login</string>
+    <string name="Email_value">Email</string>
+    <string name="Name_value">Name</string>
+    <string name="Password_value">Password</string>
+
+    <string name="Task_Date_value">Select a date</string>
+    <string name="Task_Description_value">Description (optional)</string>
+    <string name="Task_Title_value">Title</string>
+
+    <string name="Task_Created_value">Created:</string>
+    <string name="Task_Due_Date_value">Due:</string>
+    <string name="Task_Completed_value">Completed:</string>
+</resources>

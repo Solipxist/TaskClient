@@ -15,7 +15,7 @@
             android:id="@+id/TextViewTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inicio de sesion"
+            android:text="@string/Title_value"
             android:textAlignment="center"
             android:textSize="10pt"
             />
@@ -23,13 +23,13 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="25pt"
-            android:hint="Email" />
+            android:hint="@string/Email_value" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="25pt"
-            android:hint="Password"
+            android:hint="@string/Password_value"
             android:inputType="textPassword" />
 
         <Button
@@ -37,7 +37,7 @@
             android:layout_width="60pt"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Login" />
+            android:text="@string/Login_Button" />
 
         <TextView
             android:id="@+id/TVRegister"
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:text="Registrarse" />
+            android:text="@string/register_string_Login" />
 
     </LinearLayout>
 
