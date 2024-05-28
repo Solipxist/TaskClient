@@ -5,10 +5,10 @@ import java.time.OffsetDateTime
 
 data class Task(
     val taskId: Int,
-    val title: String,
-    val description: String,
+    var title: String,
+    var description: String,
     val creationDate: OffsetDateTime,
-    val dueDate: OffsetDateTime?,
+    var dueDate: OffsetDateTime?,
     var completed: Boolean,
     val userId: Int
 )

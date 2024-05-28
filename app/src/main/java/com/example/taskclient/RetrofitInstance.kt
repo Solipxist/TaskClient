@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.time.OffsetDateTime
 
 object RetrofitInstance {
-    val baseUrl = "http://10.22.20.24:8090/" // Cambia esto a la URL de tu API
+    val baseUrl = "http://192.168.0.14:8090/" // Cambia esto a la URL de tu API
 
     val gson = GsonBuilder()
         .registerTypeAdapter(OffsetDateTime::class.java, Iso8601OffsetDateTimeAdapter())
