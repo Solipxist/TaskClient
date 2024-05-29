@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#FFFFFF"
+    android:layout_margin="8dp"
+    android:backgroundTint="#F0F0F0"
+    android:elevation="2dp">
 
     <TextView
         android:id="@+id/taskTitle"
@@ -11,14 +15,14 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textColor="#333333"/>
 
     <TextView
         android:id="@+id/taskDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="#888888"
         android:layout_marginTop="8dp"/>
 
     <LinearLayout
@@ -31,16 +35,16 @@
             android:id="@+id/labelCreationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Created: "
+            android:text="Creado: "
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="#888888"/>
 
         <TextView
             android:id="@+id/taskCreationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/black"/>
+            android:textColor="#333333"/>
 
     </LinearLayout>
 
@@ -54,16 +58,16 @@
             android:id="@+id/labelDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Due: "
+            android:text="Vence: "
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="#888888"/>
 
         <TextView
             android:id="@+id/taskDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/black"/>
+            android:textColor="#333333"/>
 
     </LinearLayout>
 
@@ -77,18 +81,17 @@
             android:id="@+id/labelCompleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Completed: "
+            android:text="Completado: "
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="#888888"/>
 
         <CheckBox
             android:id="@+id/taskCompletedCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/black"/>
+            android:textColor="#333333"/>
 
     </LinearLayout>
-
 
 </LinearLayout>
