@@ -35,7 +35,7 @@
             android:id="@+id/labelCreationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Creado: "
+            android:text="@string/Task_Created_value"
             android:textSize="14sp"
             android:textColor="#888888"/>
 
@@ -58,7 +58,7 @@
             android:id="@+id/labelDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vence: "
+            android:text="@string/Task_Due_Date_value"
             android:textSize="14sp"
             android:textColor="#888888"/>
 
@@ -81,7 +81,7 @@
             android:id="@+id/labelCompleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Completado: "
+            android:text="@string/Task_Completed_value"
             android:textSize="14sp"
             android:textColor="#888888"/>
 
@@ -93,5 +93,6 @@
             android:textColor="#333333"/>
 
     </LinearLayout>
+
 
 </LinearLayout>

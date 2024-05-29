@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">TaskClient</string>
+    <string name="Login_Button">Ingresar</string>
+    <string name="register_string_Login">Registrarse</string>
+
+    <string name="Register_Title">Registro</string>
+    <string name="Register_Button">Registrar</string>
+
+    <string name="Add_Task_Title">Añadir Tarea</string>
+    <string name="Add_Task_Button">Agregar</string>
+
+
+    <string name="Title_value">Inicio de sesion</string>
+    <string name="Email_value">Correo</string>
+    <string name="Name_value">Nombre</string>
+    <string name="Password_value">Contraseña</string>
+
+    <string name="Task_Date_value">Selecciona una fecha</string>
+    <string name="Task_Description_value">Descripcion (opcional)</string>
+    <string name="Task_Title_value">Titulo</string>
+
+    <string name="Task_Created_value">Creado:</string>
+    <string name="Task_Due_Date_value">Pendiente:</string>
+    <string name="Task_Completed_value">Completado:</string>
+
 </resources>

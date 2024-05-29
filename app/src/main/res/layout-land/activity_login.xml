@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -18,57 +17,36 @@
             android:layout_height="wrap_content"
             android:text="@string/Title_value"
             android:textAlignment="center"
-            android:textSize="24sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            android:background="#A3D5D3"
-            android:padding="16dp"
-            android:layout_marginBottom="24dp" />
-
+            android:textSize="10pt"
+            />
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="25pt"
-            android:hint="@string/Email_value"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/Email_value" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
+            android:layout_height="25pt"
             android:hint="@string/Password_value"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="match_parent"
+            android:layout_width="60pt"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Login_Button"
-            android:backgroundTint="#4A90E2"
-            android:textColor="#FFFFFF"
-            android:padding="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            android:text="@string/Login_Button" />
 
         <TextView
             android:id="@+id/TVRegister"
-            android:layout_width="match_parent"
+            android:layout_width="50pt"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_gravity="center"
             android:padding="10dp"
-            android:text="@string/register_string_Login"
-            android:textColor="#4A90E2"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp" />
+            android:text="@string/register_string_Login" />
 
     </LinearLayout>
 

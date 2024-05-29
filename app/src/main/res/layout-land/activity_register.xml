@@ -2,14 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="-202dp"
+        tools:layout_editor_absoluteY="116dp">
 
         <TextView
             android:id="@+id/TextViewTitulo"
@@ -17,52 +19,32 @@
             android:layout_height="wrap_content"
             android:text="@string/Register_Title"
             android:textAlignment="center"
-            android:textSize="24sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            android:background="#A3D5D3"
-            android:padding="16dp"
-            android:layout_marginBottom="24dp" />
-
+            android:textSize="10pt"
+            />
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/Name_value"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+            android:hint="@string/Name_value" />
 
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/Email_value"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/Email_value" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:hint="@string/Password_value"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#4A90E2"
-            android:text="@string/Register_Button"
-            android:textColor="#FFFFFF"
-            android:padding="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="@string/Register_Button" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

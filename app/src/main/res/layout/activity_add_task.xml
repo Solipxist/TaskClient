@@ -4,7 +4,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     tools:context=".AddTaskActivity">
 
     <LinearLayout
@@ -18,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Agregar Tarea"
+            android:text="@string/Add_Task_Title"
             android:textColor="#333333"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -40,7 +39,7 @@
             android:layout_marginBottom="16dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Título"
+            android:hint="@string/Task_Title_value"
             android:background="@drawable/edit_text_background"
             android:padding="12dp" />
 
@@ -51,35 +50,34 @@
             android:layout_marginBottom="16dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Descripción (opcional)"
+            android:hint="@string/Task_Description_value"
             android:background="@drawable/edit_text_background"
             android:padding="12dp" />
 
-        <EditText
-            android:id="@+id/editTextDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:focusable="false"
-            android:hint="Selecciona una fecha (opcional)"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:focusable="false"
+                    android:hint="@string/Task_Date_value"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="12dp" />
 
-        <Button
-            android:id="@+id/addTaskButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#4A90E2"
-            android:text="Agregar tarea"
-            android:textColor="#FFFFFF"
-            android:padding="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="16dp" />
-
-    </LinearLayout>
+                <Button
+                    android:id="@+id/addTaskButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4A90E2"
+                    android:text="@string/Add_Task_Button"
+                    android:textColor="#FFFFFF"
+                    android:padding="16dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp" />
+            </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
