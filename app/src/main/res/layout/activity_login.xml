@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -15,38 +16,58 @@
             android:id="@+id/TextViewTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inicio de sesion"
+            android:text="Inicio de Sesión"
             android:textAlignment="center"
-            android:textSize="10pt"
-            />
+            android:textSize="24sp"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:background="#A3D5D3"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp" />
+
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
-            android:layout_height="25pt"
-            android:hint="Email" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Email"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
-            android:layout_height="25pt"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:hint="Password"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="60pt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Login" />
+            android:backgroundTint="#4A90E2"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/TVRegister"
-            android:layout_width="50pt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_gravity="center"
             android:padding="10dp"
-            android:text="Registrarse" />
+            android:text="Registrarse"
+            android:textColor="#4A90E2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp" />
 
     </LinearLayout>
 

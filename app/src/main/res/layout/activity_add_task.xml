@@ -4,95 +4,81 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context=".AddTaskActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvAddTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginBottom="24dp"
+            android:text="Agregar Tarea"
+            android:textColor="#333333"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="#A3D5D3"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"/>
 
-            <TextView
-                android:id="@+id/tvAddTaskTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="8dp"
-                android:text="Add Task"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/editTextTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Título"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Descripción (opcional)"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp" />
 
-                <EditText
-                    android:id="@+id/editTextTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="Titulo" />
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:focusable="false"
+            android:hint="Selecciona una fecha (opcional)"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp" />
 
-                <EditText
-                    android:id="@+id/editTextDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="Descripcion (opcional)"/>
-
-                <EditText
-                    android:id="@+id/editTextDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:focusable="false"
-                    android:hint="Selecciona una fecha (opcional)" />
-
-
-                <Button
-                    android:id="@+id/addTaskButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Agregar tarea" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/addTaskButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4A90E2"
+            android:text="Agregar tarea"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 
